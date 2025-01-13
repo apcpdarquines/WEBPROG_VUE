@@ -1,131 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My first Vue page</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/flexbox-grid.css?version=0.1">
-  <link rel="stylesheet" href="css/bind.css?version=0.1">
-  <link rel="stylesheet" href="css/images.css?version=0.1">
-  <link rel="stylesheet" href="css/shopping.css?version=0.1">
+  <link rel="stylesheet" href="css/flexbox-grid.css?version=0.1">   
+  <link rel="stylesheet" href="css/bind.css?version=0.1">   
+  <link rel="stylesheet" href="css/images.css?version=0.1">   
+  <link rel="stylesheet" href="css/shopping.css?version=0.1">   
 </head>
-
 <body>
-  <div class="container">
-    <header>
-      <h1>Personal Profile Web page</h1>
-    </header>
-    <main>
-      <section class="main-content">
-        <h1>About Me</h1>
-        <p>
-          Hi, my name is Peter D Arquines Jr. I am a Filipino who lives in Makati City with little experience in coding, cybersecurity, and web development.
-        </p>
-        <img src="Peter Jr.jpg" alt="Peter D Arquines Jr" width="300" height="300">
-        
-        <h1>Education & Achievement</h1>
-        <p>
-          I have studied at Pitogo High School Makati City, Manila, both high school and senior high school. I am currently a second-year student at Asia Pacific College.
-        </p>
-        <img src="https://cdn.manilastandard.net/wp-content/uploads/2024/06/B2-3apc.jpeg" alt="Asia Pacific College" width="250" height="250">
-        <img src="Pitogo.jpg" alt="Pitogo High School" width="250" height="250">
-        
-        <h1>Course</h1>
-        <p>
-          I am pursuing Computer Science as my main course in college, and I chose this course because I am very intrigued by how technology can be so advanced, especially in today's modern era.
-        </p>
-        
-        <h1>IT Experience</h1>
-        <p>
-          I had little to no experience in the field of IT. Back in 2022, I was still studying as a senior high school student, where I started learning Python, HTML, and CSS. I continued learning coding by myself and through YouTube videos. Over time, I have learned and continue learning as I enter my first year in college.
-        </p>
-        
-        <h1>Hobbies & Interests</h1>
-        <p>
-          My hobbies and interests include taking pictures, playing volleyball and video games, exercising, such as working out, watching anime, and reading Korean manga, which is also known as Manhwa.
-        </p>
-        
-        <h1>Goals in Life/Dream</h1>
-        <p>
-          My goal in life is to graduate as a cum laude or higher so that I can give back to my parents for all the sacrifices they've made throughout their lives. I also have another goal, which is to become successful so that I can finally reunite with my loved one who is in another country.
-        </p>
-        
-        <h1>Picture Gallery</h1>
-        <img src="Pic1.png" alt="Edsa, Buendia" width="250" height="250">
-        <img src="Pic2.png" alt="Native St. Pinagkaisahan" width="250" height="250">
-        <img src="Pic3.png" alt="Magallanes" width="250" height="250">
-      </section>
 
-      <aside class="sidebar">
-        Sidebar<br>Picture Gallery
-      </aside>
-    </main>
+    <div class="container">
+        <header>
+            <h1>Personal Profile Web page </h1>
+          </header>
+        <main>
+          <section class="main-content">
+                   
+            <div>1 <br>About Me </div>
+            <div>2 <br>Education / Achievements</div>
+            <div>3 <br>Course </div>  
+            <div>4 <br>IT Experience</div>
+            <div>5 <br>Hobbies & Interests</div>
+            <div>6 <br>Goals In Life / Dream</div>  
+            <div>7</div>
+    
+            </section>
+          <aside class="sidebar">  Sidebar
+            <br>Picture Gallery    
+        </aside>
+        </main>
+        <footer>  Asia Pacific College       </footer>
+      </div>
+    
 
-    <footer>
-      Asia Pacific College
-    </footer>
-  </div>
-
-  <!-- Vue.js Apps -->
-  <div id="app">
-    {{ message }} <br>
-    {{ 'Random number: ' + Math.ceil(Math.random() * 6) }}
-    <div v-bind:class="vueClass">
-      This element is bound to the "pinkBG" class.
+<div id="app">
+  {{ message }} <br>
+  {{'Random number: ' + Math.ceil(Math.random()*6) }}
+    <div v-bind:class="vueClass">This element is bound to the "pinkBG" class.
     </div>
+</div>
+
+<div id="app2">
+  <div>
+    <figure v-for="x in manyFoods">
+      <img v-bind:src="x.url">
+      <figcaption>{{ x.name }}</figcaption>
+    </figure>
   </div>
+</div>
+  
+<div id="app3">
+  <form v-on:submit.prevent="addItem">
+    <p>
+      What do you need? <br>
+      <input type="text" required placeholder="item name.." v-model="itemName">
+    </p>
+    <p>
+      How many? <br>
+      <input type="number" placeholder="number of items.." v-model="itemNumber">
+    </p>
+    <p>
+      Important?
+      <label>
+        <input type="checkbox" v-model="itemImportant">
+        {{ itemImportant }}
+      </label>
+    </p>
+    <button type="submit">Add item</button>
+  </form>
+  <br>
+  <hr>
 
-  <div id="app2">
-    <div>
-      <figure v-for="x in manyFoods">
-        <img v-bind:src="x.url" alt="Food Image">
-        <figcaption>{{ x.name }}</figcaption>
-      </figure>
-    </div>
+  <div>
+    <p><strong>Shopping list:</strong></p>
+    <ul id="ulToFind">
+      <li 
+        v-for="item in shoppingList" 
+        v-bind:class="{ impClass: item.important }"
+        v-on:click="item.found=!item.found"
+        v-show="!item.found">
+          {{ item.name }}, {{ item.number}}
+      </li>
+    </ul>
+    <ul id="ulFound">
+      <li 
+        v-for="item in shoppingList" 
+        v-bind:class="{ impClass: item.important }"
+        v-on:click="item.found=!item.found"
+        v-show="item.found">
+          {{ item.name }}, {{ item.number}}
+      </li>
+    </ul>
   </div>
+</div>
 
-  <div id="app3">
-    <form v-on:submit.prevent="addItem">
-      <p>
-        What do you need? <br>
-        <input type="text" required placeholder="Item name..." v-model="itemName">
-      </p>
-      <p>
-        How many? <br>
-        <input type="number" placeholder="Number of items..." v-model="itemNumber">
-      </p>
-      <p>
-        Important? <label>
-          <input type="checkbox" v-model="itemImportant"> {{ itemImportant }}
-        </label>
-      </p>
-      <button type="submit">Add item</button>
-    </form>
-    <br>
-    <hr>
 
-    <div>
-      <p><strong>Shopping list:</strong></p>
-      <ul id="ulToFind">
-        <li v-for="item in shoppingList" v-bind:class="{ impClass: item.important }" v-on:click="item.found = !item.found" v-show="!item.found">
-          {{ item.name }}, {{ item.number }}
-        </li>
-      </ul>
-      <ul id="ulFound">
-        <li v-for="item in shoppingList" v-bind:class="{ impClass: item.important }" v-on:click="item.found = !item.found" v-show="item.found">
-          {{ item.name }}, {{ item.number }}
-        </li>
-      </ul>
-    </div>
-  </div>
+  
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/images.js"></script>
+<script src="js/shopping.js"></script>
 
-  <!-- Scripts -->
-  <script src="js/shopping.js"></script>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="js/vue.js"></script>
-  <script src="js/images.js"></script>
-  <script src="js/shopping.js"></script>
 </body>
 </html>
